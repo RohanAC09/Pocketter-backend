@@ -55,15 +55,21 @@ public class AuthenticationService {
 			return new AuthResponse(new String("401 Unauthorized"), null);
 		}
 		
-		String email=jwtService.getJwtUsername(jwt);
-		if(email==null) {
-			throw new RuntimeException("Invalid Token");
+		try {
+			String email=jwtService.getJwtUsername(jwt);
+			if(email==null) {
+				throw new RuntimeException("Invalid Token");
+			}
+			
+			Account userAccount = accountService.getAccountByEmail(email);
+			
+			String message = jwtService.isJwtValid(jwt, userAccount) ? "Token validation successful" : "Invalid Token";
+			
+			return new AuthResponse(message, jwt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new AuthResponse(e.getMessage(), null);
 		}
-		
-		Account userAccount = accountService.getAccountByEmail(email);
-        
-        String message = jwtService.isJwtValid(jwt, userAccount) ? "Token validation successful" : "Invalid Token";
-		
-		return new AuthResponse(message, jwt);
 	}
 }

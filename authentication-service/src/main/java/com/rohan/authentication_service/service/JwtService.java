@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.rohan.authentication_service.entity.Account;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -48,11 +49,20 @@ public class JwtService {
     }
 
     public String getJwtUsername(String jwt) {
-    	Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(jwt)
-                .getPayload();
+    	Claims claims=null;
+		try {
+			claims = Jwts.parser()
+			        .verifyWith(getSigningKey())
+			        .build()
+			        .parseSignedClaims(jwt)
+			        .getPayload();
+		} catch (JwtException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         boolean isJWTExpired = claims.getExpiration().before(new Date());
         String username = !isJWTExpired ? claims.getSubject() : null;
         return username ;
