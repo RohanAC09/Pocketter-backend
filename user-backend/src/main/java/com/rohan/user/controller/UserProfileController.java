@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rohan.user.dto.request.EditUserRequest;
 import com.rohan.user.dto.response.UserResponse;
-import com.rohan.user.entity.User;
 import com.rohan.user.service.UserProfileService;
 
 @RestController
@@ -21,16 +20,16 @@ import com.rohan.user.service.UserProfileService;
 public class UserProfileController {
 	
 	@Autowired
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 	
 	@PostMapping("/createUser/{email}")
 	public ResponseEntity<UserResponse> createUser(@PathVariable String email) {
-		return ResponseEntity.ok(userProfileService.createuser(email));
+		return ResponseEntity.ok(userProfileService.createUser(email));
 	}
 	
 	@GetMapping("/viewProfile/{userId}")
-	public ResponseEntity<User> viewProfile(@PathVariable String userId) {
-		return ResponseEntity.ok(new User());
+	public ResponseEntity<String> viewProfile(@PathVariable Long userId) {
+		return ResponseEntity.ok(userProfileService.viewProfile(userId));
 	}
 	
 	@PutMapping("/editProfile/{userId}")
@@ -38,9 +37,9 @@ public class UserProfileController {
 		return ResponseEntity.ok(new UserResponse(null, null));
 	}
 	
-	@DeleteMapping("/deleteUser/{userId}")
-	public ResponseEntity<UserResponse> deleteUser(@PathVariable String userId) {
-		return ResponseEntity.ok(new UserResponse(null, null));
+	@DeleteMapping("/deleteUser/{email}")
+	public ResponseEntity<UserResponse> deleteUser(@PathVariable String email) {
+		return ResponseEntity.ok(userProfileService.deleteUserByEmail(email));
 	}
 	
 

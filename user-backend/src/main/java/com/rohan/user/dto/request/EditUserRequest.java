@@ -1,5 +1,8 @@
 package com.rohan.user.dto.request;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class EditUserRequest {
 	
 	private String username;
