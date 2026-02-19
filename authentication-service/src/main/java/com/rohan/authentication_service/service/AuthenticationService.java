@@ -31,7 +31,7 @@ public class AuthenticationService {
         }
 
         Account newAccount = accountService.createAccount(request.email(), request.password());
-        log.info("account {} has been created", newAccount.getId());
+        log.info("account {} has been created", newAccount.getAccountId());
         
         String successfulregistration="User registration successful. Please login.";
         return new AuthResponse(successfulregistration,null);

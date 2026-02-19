@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "accounts")
+@Table(name = "account")
 public class Account {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long accountId;
 
     private String email;
     private String password;
@@ -32,8 +32,8 @@ public class Account {
     }
 
 
-	public Long getId() {
-		return id;
+	public Long getAccountId() {
+		return accountId;
 	}
 
 	public String getEmail() {
