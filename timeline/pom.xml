@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rohan</groupId>
-	<artifactId>post-feed</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>post-feed-backend</name>
+	<artifactId>timeline</artifactId>
+	<version>1.0.1</version>
+	<name>timeline-backend</name>
 	<description>provides updated feed to users in pocketter app</description>
 	<url/>
 	<licenses>

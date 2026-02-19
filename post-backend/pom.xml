@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rohan</groupId>
-	<artifactId>posts</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>posts-backend</name>
+	<artifactId>post-backend</artifactId>
+	<version>1.0.1</version>
+	<name>post-backend</name>
 	<description>handles posts related actions in pocketter app</description>
 	<url/>
 	<licenses>

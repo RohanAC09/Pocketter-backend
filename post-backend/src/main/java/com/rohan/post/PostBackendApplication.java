@@ -1,13 +1,13 @@
-package com.rohan.users;
+package com.rohan.post;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UsersBackendApplication {
+public class PostBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UsersBackendApplication.class, args);
+		SpringApplication.run(PostBackendApplication.class, args);
 	}
 
 }

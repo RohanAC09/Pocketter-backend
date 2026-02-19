@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rohan</groupId>
-	<artifactId>users</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>users-backend</name>
-	<description>handles user related actions in pocketter app</description>
+	<artifactId>user-backend</artifactId>
+	<version>1.0.1</version>
+	<name>user-backend</name>
+	<description>handles user profile related actions in pocketter app</description>
 	<url/>
 	<licenses>
 		<license/>

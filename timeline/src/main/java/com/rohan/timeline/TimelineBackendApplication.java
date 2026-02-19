@@ -1,13 +1,13 @@
-package com.rohan.post_feed;
+package com.rohan.timeline;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PostFeedBackendApplication {
+public class TimelineBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PostFeedBackendApplication.class, args);
+		SpringApplication.run(TimelineBackendApplication.class, args);
 	}
 
 }
