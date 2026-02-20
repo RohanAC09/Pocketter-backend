@@ -1,7 +1,6 @@
 package com.rohan.user.config;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javax.crypto.SecretKey;
 
@@ -50,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             Authentication auth =
                     new UsernamePasswordAuthenticationToken(
-                            username, null, Collections.emptyList());
+                            username, null, null);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
