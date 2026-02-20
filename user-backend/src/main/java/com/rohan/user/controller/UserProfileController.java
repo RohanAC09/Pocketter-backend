@@ -2,6 +2,7 @@ package com.rohan.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rohan.user.dto.request.EditUserRequest;
 import com.rohan.user.dto.response.UserResponse;
-import com.rohan.user.entity.User;
 import com.rohan.user.service.UserProfileService;
 
 @RestController
@@ -21,26 +21,27 @@ import com.rohan.user.service.UserProfileService;
 public class UserProfileController {
 	
 	@Autowired
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 	
 	@PostMapping("/createUser/{email}")
 	public ResponseEntity<UserResponse> createUser(@PathVariable String email) {
-		return ResponseEntity.ok(userProfileService.createuser(email));
+		return ResponseEntity.ok(userProfileService.createUser(email));
 	}
 	
 	@GetMapping("/viewProfile/{userId}")
-	public ResponseEntity<User> viewProfile(@PathVariable String userId) {
-		return ResponseEntity.ok(new User());
+	public ResponseEntity<String> viewProfile(@PathVariable Long userId) {
+		return ResponseEntity.ok(userProfileService.viewProfile(userId));
 	}
 	
 	@PutMapping("/editProfile/{userId}")
-	public ResponseEntity<UserResponse> editProfile(@PathVariable String userId, @RequestBody EditUserRequest userRequest) {
-		return ResponseEntity.ok(new UserResponse(null, null));
+	public ResponseEntity<UserResponse> editProfile(@PathVariable Long userId, @RequestBody EditUserRequest userRequest,
+													Authentication auth) {
+		return ResponseEntity.ok(userProfileService.editProfile(userId, userRequest, auth.getName()));
 	}
 	
-	@DeleteMapping("/deleteUser/{userId}")
-	public ResponseEntity<UserResponse> deleteUser(@PathVariable String userId) {
-		return ResponseEntity.ok(new UserResponse(null, null));
+	@DeleteMapping("/deleteUser/{email}")
+	public ResponseEntity<UserResponse> deleteUser(@PathVariable String email) {
+		return ResponseEntity.ok(userProfileService.deleteUserByEmail(email));
 	}
 	
 

@@ -1,0 +1,10 @@
+stages:
+- release
+
+build image:
+  stage: release
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  - docker build -t authentication-service:1.0.1 .
