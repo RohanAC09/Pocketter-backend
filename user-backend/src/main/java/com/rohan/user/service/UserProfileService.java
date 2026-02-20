@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rohan.user.dto.request.EditUserRequest;
 import com.rohan.user.dto.response.UserResponse;
 import com.rohan.user.entity.User;
 
@@ -41,6 +42,29 @@ public class UserProfileService {
         }
         
         return optionalUser.get().toString();
+	}
+
+	public UserResponse editProfile(Long userId, EditUserRequest userRequest, String username) {
+		Optional<User> optionalUser=userService.findUserByUserId(userId);
+		
+		if ( !optionalUser.isPresent()) {
+        	log.info("editProfile Error: user does not exists: {}", userId);
+            return new UserResponse(new String("Could not perform operation. User does not exists"), 
+            		new Timestamp(System.currentTimeMillis()));
+        }
+
+		User user=optionalUser.get();
+		if( !username.equals(user.getUsername())) {
+			return new UserResponse(new String("User action not allowed. Unauthorised!"), 
+					new Timestamp(System.currentTimeMillis()));
+		}
+		
+		user.setBio(userRequest.getBio());
+		user.setFullName(userRequest.getFullName());
+		
+		userService.saveUser(user);
+		return new UserResponse(new String("Update profile successful."), 
+        		new Timestamp(System.currentTimeMillis()));
 	}
 
 	public UserResponse deleteUserByEmail(String email) {

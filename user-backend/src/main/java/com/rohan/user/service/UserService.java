@@ -36,6 +36,10 @@ public class UserService {
 		return userRepository.findByUserId(userId);
 	}
 
+	public void saveUser(User user) {
+		userRepository.saveAndFlush(user);
+	}
+
 	public void deleteUserByEmail(String email) {
 		userRepository.deleteByEmail(email);
 	}

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class EditUserRequest {
 	
-	private String username;
 	private String fullName;
 	private String bio;
 	
@@ -14,8 +13,5 @@ public class EditUserRequest {
 	}
 	public String getBio() {
 		return bio;
-	}
-	public String getUsername() {
-		return username;
 	}
 }

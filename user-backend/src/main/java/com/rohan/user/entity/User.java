@@ -66,7 +66,7 @@ public class User {
 	public String toString() {
 		return "{  \"userId\" : \""+userId+"\", \"email\" : \""+email+"\", "
 				+ "\"username\" : \""+username+"\", \"fullName\" : \""+fullName+"\", "
-				+ "\"bio\" : \""+bio+"\", \"createdAt\" : \""+createdAt+"\" }]";
+				+ "\"bio\" : \""+bio+"\", \"createdAt\" : \""+createdAt+"\" }";
 	}
 	
 }
