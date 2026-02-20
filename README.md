@@ -1,4 +1,4 @@
-# Pockeeter: A Social Media Platform
+# Pocketter: A Social Media Platform
 
 - A Platform for sharing insightful thoughts, similar to the Twitter (currently "X") platform.
 - Users can post their thoughts on the platform. Also, they can see other posts as a feed feature "timeline"
