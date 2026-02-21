@@ -18,6 +18,9 @@ public class UserProfileService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private FollowService followService;
 
 	public UserResponse createUser(String email) {
 		
@@ -79,6 +82,44 @@ public class UserProfileService {
         log.info(responsemessage);
         
         return new UserResponse(responsemessage, new Timestamp(System.currentTimeMillis()));
+	}
+
+	public UserResponse followUser(Long followeeUserId, String followerUsername) {
+		
+		if( !userService.findUserByUserId(followeeUserId).isPresent()) {
+			log.info("followUser Error: user does not exists: {}", followerUsername);
+            return new UserResponse(new String("User does not exists."), new Timestamp(System.currentTimeMillis()));
+		}
+		
+		Long currUserId = userService.findUserIdByUsername(followerUsername);
+		
+		if( followService.isUserAlreadyFollowing(followeeUserId, currUserId)) {
+			log.info("followUser Info: already following user: {}", followeeUserId);
+            return new UserResponse(new String("Already following the user."), new Timestamp(System.currentTimeMillis()));
+		}
+		
+		followService.followUser(followeeUserId, currUserId);
+		
+		return null;
+	}
+
+	public UserResponse unfollowUser(Long followeeUserId, String followerUsername) {
+		
+		if( !userService.findUserByUserId(followeeUserId).isPresent()) {
+			log.info("followUser Error: user does not exists: {}", followerUsername);
+            return new UserResponse(new String("User does not exists."), new Timestamp(System.currentTimeMillis()));
+		}
+		
+		Long currUserId = userService.findUserIdByUsername(followerUsername);
+		
+		if( !followService.isUserAlreadyFollowing(followeeUserId, currUserId)) {
+			log.info("followUser Info: you are not following user: {}", followeeUserId);
+            return new UserResponse(new String("You are not following the user."), new Timestamp(System.currentTimeMillis()));
+		}
+		
+		followService.unfollowUser(followeeUserId, currUserId);
+		
+		return null;
 	}
 
 }

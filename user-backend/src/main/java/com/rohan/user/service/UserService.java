@@ -34,12 +34,16 @@ public class UserService {
                 .build() );
 	}
 
+	public void saveUser(User user) {
+		userRepository.saveAndFlush(user);
+	}
+
 	public Optional<User> findUserByUserId(Long userId) {
 		return userRepository.findByUserId(userId);
 	}
 
-	public void saveUser(User user) {
-		userRepository.saveAndFlush(user);
+	public Long findUserIdByUsername(String username) {
+		return userRepository.findUserIdByUsername(username);
 	}
 
 	public void deleteUserByEmail(String email) {
