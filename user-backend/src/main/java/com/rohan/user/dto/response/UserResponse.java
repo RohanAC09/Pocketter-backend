@@ -2,11 +2,8 @@ package com.rohan.user.dto.response;
 
 import java.sql.Timestamp;
 
-import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 
-@Component
 @AllArgsConstructor
 public class UserResponse {
 	private String message;
@@ -17,5 +14,10 @@ public class UserResponse {
 	}
 	public Timestamp getTimeStamp() {
 		return timeStamp;
+	}
+	
+	@Override
+	public String toString() {
+		return "{ \"message\" : \"" + message + "\", \"timeStamp\" : \"" + timeStamp + "\" }";
 	}
 }

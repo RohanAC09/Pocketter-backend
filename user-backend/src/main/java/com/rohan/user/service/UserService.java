@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.rohan.user.entity.User;
 import com.rohan.user.repository.UserRepository;
 
+@Service
 public class UserService {
 	
 	@Autowired
