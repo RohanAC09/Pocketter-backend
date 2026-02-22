@@ -34,5 +34,9 @@ public class AccountService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 		return userAccount;
 	}
+	
+	public void deleteAccountByEmail(String email) {
+		accountRepository.deleteByEmail(email);
+	}
 
 }

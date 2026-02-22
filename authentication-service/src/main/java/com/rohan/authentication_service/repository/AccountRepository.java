@@ -10,5 +10,7 @@ import com.rohan.authentication_service.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>{
 	
-	Optional<Account> findByEmail(String email);
+	public Optional<Account> findByEmail(String email);
+
+	public void deleteByEmail(String email);
 }

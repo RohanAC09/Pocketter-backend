@@ -1,9 +1,11 @@
 package com.rohan.authentication_service.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rohan.authentication_service.apiclient.ApiClientService;
 import com.rohan.authentication_service.dto.request.AuthenticationRequest;
 import com.rohan.authentication_service.dto.response.AuthResponse;
 import com.rohan.authentication_service.entity.Account;
@@ -24,6 +26,12 @@ public class AuthenticationService {
 	@Autowired
 	AccountService accountService;
 	
+	@Autowired
+	ApiClientService apiClientService;
+	
+	@Value("${user.backend.createUser.api}")
+	private String userBackendCreateUser;
+	
 	public AuthResponse register(AuthenticationRequest request) {
         if (accountService.isAccountExists(request.email())) {
         	log.error("Error account already exists: {}", request.email());
@@ -33,8 +41,18 @@ public class AuthenticationService {
         Account newAccount = accountService.createAccount(request.email(), request.password());
         log.info("account {} has been created", newAccount.getAccountId());
         
+        try {
+			String jwt=jwtService.generateJwt(newAccount);
+			String userResponse = apiClientService.callWithPathVariable(userBackendCreateUser, jwt, newAccount.getEmail());
+			log.info("userBackendCreateUser call: {}", userResponse);
+		} catch (Exception e) {
+			log.error("userBackendCreateUser call: {}", e.getMessage());
+			accountService.deleteAccountByEmail(newAccount.getEmail());
+			return new AuthResponse("Registration failed. Message: " + e.getMessage() , null);
+		}
+        
         String successfulregistration="User registration successful. Please login.";
-        return new AuthResponse(successfulregistration,null);
+        return new AuthResponse(successfulregistration, null);
     }
 
 	public AuthResponse login(@Valid AuthenticationRequest request) {

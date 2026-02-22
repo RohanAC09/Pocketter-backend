@@ -39,6 +39,16 @@ public class UserProfileController {
 		return ResponseEntity.ok(userProfileService.editProfile(userId, userRequest, auth.getName()));
 	}
 	
+	@PostMapping("/follow/{userId}")
+	public ResponseEntity<UserResponse> followUser(@PathVariable Long userId,  Authentication auth) {
+		return ResponseEntity.ok(userProfileService.followUser(userId, auth.getName()));
+	}
+	
+	@DeleteMapping("/unfollow/{userId}")
+	public ResponseEntity<UserResponse> unfollowUser(@PathVariable Long userId, Authentication auth) {
+		return ResponseEntity.ok(userProfileService.unfollowUser(userId, auth.getName()));
+	}
+	
 	@DeleteMapping("/deleteUser/{email}")
 	public ResponseEntity<UserResponse> deleteUser(@PathVariable String email) {
 		return ResponseEntity.ok(userProfileService.deleteUserByEmail(email));
