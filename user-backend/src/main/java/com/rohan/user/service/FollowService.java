@@ -1,6 +1,7 @@
 package com.rohan.user.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class FollowService {
 
 	public void unfollowUser(Long followeeUserId, Long currUserId) {
 		followRepository.deleteByFolloweeIdAndFollowerId(followeeUserId, currUserId);
+	}
+
+	public List<Long> fetchAllFollowerIds(Long userId) {
+		return followRepository.findAllFollowerId(userId);
 	}
 	
 	

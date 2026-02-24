@@ -1,12 +1,14 @@
 package com.rohan.user.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rohan.user.dto.request.EditUserRequest;
+import com.rohan.user.dto.response.FetchFollower;
 import com.rohan.user.dto.response.UserResponse;
 import com.rohan.user.entity.User;
 
@@ -93,6 +95,10 @@ public class UserProfileService {
 		
 		Long currUserId = userService.findUserIdByUsername(followerUsername);
 		
+		if(currUserId == followeeUserId) {
+			return new UserResponse(new String("Please search other users."), new Timestamp(System.currentTimeMillis()));
+		}
+		
 		if( followService.isUserAlreadyFollowing(followeeUserId, currUserId)) {
 			log.info("followUser Info: already following user: {}", followeeUserId);
             return new UserResponse(new String("Already following the user."), new Timestamp(System.currentTimeMillis()));
@@ -100,7 +106,7 @@ public class UserProfileService {
 		
 		followService.followUser(followeeUserId, currUserId);
 		
-		return null;
+		return new UserResponse(new String("You are following the user."), new Timestamp(System.currentTimeMillis()));
 	}
 
 	public UserResponse unfollowUser(Long followeeUserId, String followerUsername) {
@@ -112,6 +118,10 @@ public class UserProfileService {
 		
 		Long currUserId = userService.findUserIdByUsername(followerUsername);
 		
+		if(currUserId == followeeUserId) {
+			return new UserResponse(new String("Invalid operation."), new Timestamp(System.currentTimeMillis()));
+		}
+		
 		if( !followService.isUserAlreadyFollowing(followeeUserId, currUserId)) {
 			log.info("followUser Info: you are not following user: {}", followeeUserId);
             return new UserResponse(new String("You are not following the user."), new Timestamp(System.currentTimeMillis()));
@@ -119,7 +129,18 @@ public class UserProfileService {
 		
 		followService.unfollowUser(followeeUserId, currUserId);
 		
-		return null;
+		return new UserResponse(new String("You are unfollowing the user."), new Timestamp(System.currentTimeMillis()));
+	}
+
+	public FetchFollower fetchFollowerId(Long userId, String username) {
+		
+		List<Long> followerIds=followService.fetchAllFollowerIds(userId);
+		
+		return FetchFollower.builder()
+				.userId(userId)
+				.username(username)
+				.followerIds(followerIds)
+				.build();
 	}
 
 }
