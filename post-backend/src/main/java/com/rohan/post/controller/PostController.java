@@ -21,7 +21,7 @@ public class PostController {
 	
 	@PostMapping("/createPost")
 	public ResponseEntity<PostCommonResponse> createPost(@RequestBody PostRequest postRequest, Authentication auth){
-		return ResponseEntity.ok(new PostCommonResponse(null, null));
+		return ResponseEntity.ok(postService.createPost(postRequest, auth));
 	}
 
 }

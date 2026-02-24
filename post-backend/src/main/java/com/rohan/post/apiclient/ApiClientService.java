@@ -3,6 +3,8 @@ package com.rohan.post.apiclient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.rohan.post.dto.request.UserFollowers;
+
 @Component
 public class ApiClientService {
 	
@@ -20,5 +22,9 @@ private final WebClient webClient;
 				.retrieve()
 				.bodyToMono(String.class)
 				.block();
+	}
+
+	public UserFollowers CallUserAndFetchFollowerId(String userFetchFollowerid, String jwt, Long userId) {
+		return null;
 	}
 }

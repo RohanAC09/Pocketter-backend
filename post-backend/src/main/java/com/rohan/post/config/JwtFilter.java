@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.rohan.post.config.dto.auth.AuthPrincipal;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -42,14 +44,14 @@ public class JwtFilter extends OncePerRequestFilter {
                     .parseSignedClaims(jwt)
                     .getPayload();
 
-            String username = claims.getSubject();
+            AuthPrincipal authPrincipal = new AuthPrincipal(claims.getSubject(), jwt);
             // String role = claims.get("role", String.class);
 
             // List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ADMIN"));
 
             Authentication auth =
                     new UsernamePasswordAuthenticationToken(
-                            username, null, null);
+                    		authPrincipal, null, null);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

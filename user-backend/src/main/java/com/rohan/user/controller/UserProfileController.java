@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rohan.user.dto.request.EditUserRequest;
+import com.rohan.user.dto.response.FetchFollower;
 import com.rohan.user.dto.response.UserResponse;
 import com.rohan.user.service.UserProfileService;
 
@@ -52,6 +53,11 @@ public class UserProfileController {
 	@DeleteMapping("/deleteUser/{email}")
 	public ResponseEntity<UserResponse> deleteUser(@PathVariable String email) {
 		return ResponseEntity.ok(userProfileService.deleteUserByEmail(email));
+	}
+	
+	@GetMapping("/fetchFollowerId/{userId}")
+	public ResponseEntity<FetchFollower> fetchFollowerId(@PathVariable Long userId, Authentication auth){
+		return ResponseEntity.ok(userProfileService.fetchFollowerId(userId, auth.getName()));
 	}
 	
 
