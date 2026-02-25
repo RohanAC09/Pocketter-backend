@@ -35,6 +35,10 @@ public class FollowService {
 	public List<Long> fetchAllFollowerIds(Long userId) {
 		return followRepository.findAllFollowerId(userId);
 	}
+
+	public List<Long> fetchAllFolloweeIds(Long userId) {
+		return followRepository.findAllFolloweeId(userId);
+	}
 	
 	
 }
