@@ -3,6 +3,7 @@ package com.rohan.post.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import com.rohan.post.dto.response.PostCommonResponse;
 import com.rohan.post.service.PostService;
 
 @RestController
-@RequestMapping("/api/v1/profile")
+@RequestMapping("/api/v1/post")
 public class PostController {
 	
 	@Autowired
@@ -27,12 +28,12 @@ public class PostController {
 		return ResponseEntity.ok(postService.createPost(postRequest, auth));
 	}
 	
-	@PostMapping("/getPostsByIds")
+	@GetMapping("/getPostsByIds")
 	public ResponseEntity<AggregatedPosts> getPostsById(@RequestBody PostIdRequest postIdRequest){
 		return ResponseEntity.ok(postService.getPostsByIds(postIdRequest));
 	}
 	
-	@PostMapping("/getPostsForUser/{userId}")
+	@GetMapping("/getPostsForUser/{userId}")
 	public ResponseEntity<AggregatedPosts> getPostsForUser(@PathVariable Long userId){
 		return ResponseEntity.ok(postService.getPostsForUser(userId));
 	}
