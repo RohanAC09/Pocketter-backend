@@ -1,41 +1,35 @@
-package com.rohan.post.entity;
+package com.rohan.post.dto.response;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.rohan.post.entity.Post;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="post")
-public class Post {
+public class PostDTO {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="post_id")
-    private Long postId;
-
-    @Column(name="user_id")
-	private Long userId;
-    
-    @Column(name="content")
+	private Long postId;
+    private Long userId;
     private String content;
-    
-    @Column(name="username")
     private String username;
-    
-    @Column(name="created_at")
     private Timestamp createdAt;
     
+    public PostDTO(Post post) {
+    	this.postId=post.getPostId();
+    	this.userId=post.getUserId();
+    	this.content=post.getContent();
+    	this.username=post.getUsername();
+    	this.createdAt=post.getCreatedAt();
+    }
+	public Long getPostId() {
+		return postId;
+	}
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -59,8 +53,5 @@ public class Post {
 	}
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
-	}
-	public Long getPostId() {
-		return postId;
 	}
 }

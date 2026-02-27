@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rohan.user.dto.request.EditUserRequest;
+import com.rohan.user.dto.response.FetchFollowee;
 import com.rohan.user.dto.response.FetchFollower;
 import com.rohan.user.dto.response.UserResponse;
 import com.rohan.user.entity.User;
@@ -132,14 +133,25 @@ public class UserProfileService {
 		return new UserResponse(new String("You are unfollowing the user."), new Timestamp(System.currentTimeMillis()));
 	}
 
-	public FetchFollower fetchFollowerId(Long userId, String username) {
+	public FetchFollower fetchFollowerId(Long followeeId, String username) {
 		
-		List<Long> followerIds=followService.fetchAllFollowerIds(userId);
+		List<Long> followerIds=followService.fetchAllFollowerIds(followeeId);
 		
 		return FetchFollower.builder()
-				.userId(userId)
+				.userId(followeeId)
 				.username(username)
 				.followerIds(followerIds)
+				.build();
+	}
+	
+	public FetchFollowee fetchFolloweeId(Long followerId, String username) {
+		
+		List<Long> followeeIds=followService.fetchAllFolloweeIds(followerId);
+		
+		return FetchFollowee.builder()
+				.userId(followerId)
+				.username(username)
+				.followeeIds(followeeIds)
 				.build();
 	}
 

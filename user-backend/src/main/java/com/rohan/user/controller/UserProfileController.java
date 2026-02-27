@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rohan.user.dto.request.EditUserRequest;
+import com.rohan.user.dto.response.FetchFollowee;
 import com.rohan.user.dto.response.FetchFollower;
 import com.rohan.user.dto.response.UserResponse;
 import com.rohan.user.service.UserProfileService;
@@ -55,9 +56,14 @@ public class UserProfileController {
 		return ResponseEntity.ok(userProfileService.deleteUserByEmail(email));
 	}
 	
-	@GetMapping("/fetchFollowerId/{userId}")
-	public ResponseEntity<FetchFollower> fetchFollowerId(@PathVariable Long userId, Authentication auth){
-		return ResponseEntity.ok(userProfileService.fetchFollowerId(userId, auth.getName()));
+	@GetMapping("/fetchFollowerId/{followeeId}")
+	public ResponseEntity<FetchFollower> fetchFollowerId(@PathVariable Long followeeId, Authentication auth){
+		return ResponseEntity.ok(userProfileService.fetchFollowerId(followeeId, auth.getName()));
+	}
+	
+	@GetMapping("/fetchFolloweeId/{followerId}")
+	public ResponseEntity<FetchFollowee> fetchFolloweeId(@PathVariable Long followerId, Authentication auth){
+		return ResponseEntity.ok(userProfileService.fetchFolloweeId(followerId, auth.getName()));
 	}
 	
 

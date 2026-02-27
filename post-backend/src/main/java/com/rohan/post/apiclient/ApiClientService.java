@@ -3,8 +3,6 @@ package com.rohan.post.apiclient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.rohan.post.dto.request.UserFollowers;
-
 @Component
 public class ApiClientService {
 	
@@ -14,7 +12,7 @@ private final WebClient webClient;
 		this.webClient=webClient.build();
 	}
 
-	public String callWithPathVariable(String userBackendCreateUser, String jwt, String email) {
+	public String callWithPathVariable(String userBackendCreateUser, String email, String jwt) {
 		return webClient.post()
 				.uri(userBackendCreateUser, email)
 				.header("Authorization", "Bearer " + jwt)
@@ -24,7 +22,13 @@ private final WebClient webClient;
 				.block();
 	}
 
-	public UserFollowers CallUserAndFetchFollowerId(String userFetchFollowerid, String jwt, Long userId) {
-		return null;
+	public <T> T callFollowWithUserId(String userBackendUri, Long userId, String jwt, Class<T> entityClass) {
+		return webClient.post()
+				.uri(userBackendUri, userId)
+				.header("Authorization", "Bearer " + jwt)
+				// .bodyValue(RequestBody)
+				.retrieve()
+				.bodyToMono(entityClass)
+				.block();
 	}
 }

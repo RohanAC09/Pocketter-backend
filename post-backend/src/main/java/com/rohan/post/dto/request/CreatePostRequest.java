@@ -3,7 +3,7 @@ package com.rohan.post.dto.request;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class PostRequest {
+public class CreatePostRequest {
 	
 	private Long userId;
 	private String content;

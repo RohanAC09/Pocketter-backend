@@ -5,8 +5,6 @@ RUN --mount=type=cache,target=/root/.m2 \
       mvn clean package -DskipTests
 RUN java -Djarmode=layertools -jar target/post-backend-*.jar extract
 
-EXPOSE 8085
-
 FROM amazoncorretto:21-alpine3.23-jdk
 WORKDIR /app
 
