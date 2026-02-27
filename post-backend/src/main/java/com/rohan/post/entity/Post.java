@@ -2,6 +2,7 @@ package com.rohan.post.entity;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,11 +21,19 @@ public class Post {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="post_id")
     private Long postId;
 
-    private Long userId;
+    @Column(name="user_id")
+	private Long userId;
+    
+    @Column(name="content")
     private String content;
+    
+    @Column(name="username")
     private String username;
+    
+    @Column(name="created_at")
     private Timestamp createdAt;
     
 	public Long getUserId() {
