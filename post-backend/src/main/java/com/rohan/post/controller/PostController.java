@@ -28,7 +28,7 @@ public class PostController {
 		return ResponseEntity.ok(postService.createPost(postRequest, auth));
 	}
 	
-	@GetMapping("/getPostsByIds")
+	@PostMapping("/getPostsByIds")
 	public ResponseEntity<AggregatedPosts> getPostsById(@RequestBody PostIdRequest postIdRequest){
 		return ResponseEntity.ok(postService.getPostsByIds(postIdRequest));
 	}
