@@ -17,10 +17,10 @@ public interface FollowRepository extends JpaRepository<Follows, Long> {
 
 	public void deleteByFolloweeIdAndFollowerId(Long followeeUserId, Long currUserId);
 	
-	@Query("SELECT f.followerId FROM follows f WHERE f.followeeId= :userId")
+	@Query(value="SELECT f.followerId FROM follows f WHERE f.followeeId= :userId", nativeQuery = true)
 	public List<Long> findAllFollowerId(@Param("userId") Long userId);
 
-	@Query("SELECT f.followeeId FROM follows f WHERE f.followerId= :userId")
+	@Query(value="SELECT f.followeeId FROM follows f WHERE f.followerId= :userId", nativeQuery = true)
 	public List<Long> findAllFolloweeId(@Param("userId") Long userId);
 
 }
