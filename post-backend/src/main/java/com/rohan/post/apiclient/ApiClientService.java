@@ -13,7 +13,7 @@ private final WebClient webClient;
 	}
 
 	public String callWithPathVariable(String userBackendCreateUser, String email, String jwt) {
-		return webClient.post()
+		return webClient.get()
 				.uri(userBackendCreateUser, email)
 				.header("Authorization", "Bearer " + jwt)
 				// .bodyValue(RequestBody)
@@ -23,7 +23,7 @@ private final WebClient webClient;
 	}
 
 	public <T> T callFollowWithUserId(String userBackendUri, Long userId, String jwt, Class<T> entityClass) {
-		return webClient.post()
+		return webClient.get()
 				.uri(userBackendUri, userId)
 				.header("Authorization", "Bearer " + jwt)
 				// .bodyValue(RequestBody)

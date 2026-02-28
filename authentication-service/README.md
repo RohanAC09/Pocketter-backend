@@ -17,7 +17,7 @@ Authentication service validates user credentials and provides Json-Web Token (J
 ## APIs
 - /api/v1/auth/register - POST
 - /api/v1/auth/login - POST
-- /api/v1/auth/validate/jwt - GET
+- /api/v1/auth/validate/jwt - POST
 
 1. Register User
 <img width="700" height="350" alt="Screenshot from 2026-02-18 19-14-46" src="https://github.com/user-attachments/assets/650fe433-4a2a-442b-9ab9-252b6e1056ea" />
