@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ./ /app
 RUN --mount=type=cache,target=/root/.m2 \
       mvn clean package -DskipTests
-RUN java -Djarmode=layertools -jar target/timeline-backend-*.jar extract
+RUN java -Djarmode=layertools -jar target/timeline-*.jar extract
 
 FROM amazoncorretto:21-alpine3.23-jdk
 WORKDIR /app
