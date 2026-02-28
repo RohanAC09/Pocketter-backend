@@ -36,7 +36,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/validate/jwt")
+    @PostMapping("/validate/jwt")
     public ResponseEntity<AuthResponse> isTokenValid(@RequestBody TokenValidationRequest request) {
         return ResponseEntity.ok(authenticationService.isTokenValid(request.getToken()));
     }
