@@ -13,7 +13,7 @@ Post service allows to create posts and see latest posts by followed people
 
 ## APIs
 - /api/v1/post/createPost - POST
-- /api/v1/post/getPostsByIds - GET
+- /api/v1/post/getPostsByIds - POST
 - /api/v1/post/getPostsForUser/{userId} - GET
 
 
