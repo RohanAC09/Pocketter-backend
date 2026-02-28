@@ -2,35 +2,35 @@ version: "1.4"
 
 services:
 
-  auth-service:
-    build: ./auth-service
-    container_name: auth-service
+  authentication-service:
+    build: ./authentication-service
+    container_name: authentication-service
     ports:
-      - "8081:8080"
+      - "9016:9016"
     networks:
       - pocketter-network
 
-  user-service:
-    build: ./user-service
-    container_name: user-service
+  user-backend:
+    build: ./user-backend
+    container_name: user-backend
     ports:
-      - "8082:8080"
+      - "8085:8085"
     networks:
       - pocketter-network
 
-  post-service:
-    build: ./post-service
-    container_name: post-service
+  post-backend:
+    build: ./post-backend
+    container_name: post-backend
     ports:
-      - "8083:8080"
+      - "8086:8086"
     networks:
       - pocketter-network
 
-  timeline-service:
-    build: ./timeline-service
-    container_name: timeline-service
+  timeline-backend:
+    build: ./timeline
+    container_name: timeline-backend
     ports:
-      - "8084:8080"
+      - "8087:8087"
     networks:
       - pocketter-network
 
