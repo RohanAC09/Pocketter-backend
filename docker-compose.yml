@@ -1,0 +1,39 @@
+version: "1.4"
+
+services:
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8080"
+    networks:
+      - pocketter-network
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8082:8080"
+    networks:
+      - pocketter-network
+
+  post-service:
+    build: ./post-service
+    container_name: post-service
+    ports:
+      - "8083:8080"
+    networks:
+      - pocketter-network
+
+  timeline-service:
+    build: ./timeline-service
+    container_name: timeline-service
+    ports:
+      - "8084:8080"
+    networks:
+      - pocketter-network
+
+networks:
+  pocketter-network:
+    driver: bridge
