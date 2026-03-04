@@ -70,6 +70,9 @@ public class PostService {
 
 	public AggregatedPosts getPostsByIds(PostIdRequest postIdRequest) {
 		
+		if(postIdRequest.getPostIds().isEmpty()) {
+			return AggregatedPosts.builder().userId(postIdRequest.getUserId()).build();
+		}
 		List<Post> posts=postRepository.findAllPostsByPostIds(postIdRequest.getPostIds());
 		
 		List<PostDTO> postsDTO = ( posts == null ? List.of() : 

@@ -16,5 +16,9 @@ public class UserFollowee {
 	public List<Long> getFolloweeIds() {
 		return followeeIds;
 	}
+	@Override
+	public String toString() {
+		return "UserFollowee [userId=" + userId + ", followeeIds=" + followeeIds + "]";
+	}
 
 }
