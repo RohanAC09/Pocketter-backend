@@ -19,7 +19,7 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 		                   PARTITION BY p.user_id
 		                   ORDER BY p.created_at DESC
 		               ) as rn
-		        FROM posts p
+		        FROM post p
 		        WHERE p.user_id IN (:userIds)
 		    ) ranked
 		    WHERE ranked.rn <= :recordsPerUser

@@ -1,11 +1,9 @@
 package com.rohan.timeline.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +11,16 @@ import com.rohan.timeline.apiclient.ApiClientService;
 import com.rohan.timeline.config.dto.auth.AuthPrincipal;
 import com.rohan.timeline.dto.request.PostRequest;
 import com.rohan.timeline.dto.response.AggregatedPosts;
+import com.rohan.timeline.redis.RedisService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class TimelineService {
 	
 	@Autowired
-	private RedisTemplate<String, Long> redisTemplate;
+	private RedisService redisService;
 	
 	@Autowired
 	private ApiClientService apiClientService;
@@ -35,24 +37,24 @@ public class TimelineService {
 											.getAuthentication().getPrincipal();
 		AggregatedPosts aggregatedPosts;
 		
-		// Call Redis and get PostIds
-		List<Long> postIds=new ArrayList<>();
+		List<Long> postIds= redisService.getLatestPosts(userId);
+		log.info("Response from redis server: {}", postIds);
 		
 		if( !postIds.isEmpty() ) {
 			PostRequest postRequest=new PostRequest(userId, postIds);
 			aggregatedPosts = apiClientService.callPostWithPostIds(postBackendGetPostsById, postRequest, 
 													AggregatedPosts.class, authPrincipal.getJwt());
+			log.info("Response from post server with post ids: {}", aggregatedPosts);
 		} else {
 			aggregatedPosts = apiClientService.callPostWithUserId(postBackendRecentPostsByUserId, userId, 
 													AggregatedPosts.class, authPrincipal.getJwt());
-			
-			// Store post ids to Redis cache
+			log.info("Response from post server with post ids: {}", aggregatedPosts);
+			if( aggregatedPosts != null && !(aggregatedPosts.getPosts().isEmpty()) ) {
+				redisService.addPostsBatch(userId, aggregatedPosts.getPosts());
+				log.info("Saved response from post server in Redis cache for key: timeline:user:{}", userId);
+			}
 		}
 		return aggregatedPosts;
 	}
-
-    private String getTimelineKey(Long userId) {
-        return "timeline:user:" + userId;
-    }
 
 }

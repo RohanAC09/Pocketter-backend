@@ -34,6 +34,22 @@ services:
     networks:
       - pocketter-network
 
+  redis:
+    build: ./z_infra/redis
+    container_name: redis
+    ports:
+      - "6378:6378"
+    networks:
+      - pocketter-network
+  
+  # mysql:
+  #   build: ./z_infra/mysql
+  #   container_name: mysql
+  #   ports:
+  #     - "3307:3306"
+  #   networks:
+  #     - pocketter-network
+
 networks:
   pocketter-network:
     driver: bridge

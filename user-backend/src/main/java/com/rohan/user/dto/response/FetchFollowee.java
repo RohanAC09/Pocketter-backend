@@ -23,10 +23,10 @@ public class FetchFollowee {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public List<Long> getFollowerids() {
+	public List<Long> getFolloweeIds() {
 		return followeeIds;
 	}
-	public void setFollowerids(List<Long> followerids) {
+	public void setFolloweeIds(List<Long> followerids) {
 		this.followeeIds = followerids;
 	}
 }
