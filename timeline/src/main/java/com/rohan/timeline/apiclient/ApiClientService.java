@@ -30,7 +30,6 @@ public class ApiClientService {
 		return webClient.get()
 					.uri(postBackendRecentPostsByUserId, userId)
 					.header("Authorization", "Bearer " + jwt)
-					// .bodyValue(RequestBody)
 					.retrieve()
 					.bodyToMono(entityClass)
 					.block();
