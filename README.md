@@ -11,6 +11,7 @@
 - [Trade-offs](#trade-offs)
 - [Microservices](#microservices)
 - [Tech Stack](#-tech-stack)
+- [Deploying Containers](#deploying-containers)
 
 ## Features
 - Microservice architecture
@@ -49,12 +50,38 @@
 3. Post Service - [Code & related files](https://github.com/RohanAC09/Pocketter-backend/tree/main/post-backend)
 4. Timeline Service - [Code & related files](https://github.com/RohanAC09/Pocketter-backend/tree/main/timeline)
 
+## Deploying Containers
+
+- Follow these steps to run all services using Docker.
+  - Clone the repository  
+    ```bash 
+    git clone https://github.com/RohanAC09/Pocketter-backend.git
+    cd Pocketter-backend/
+    ```
+
+  - Build & run the images with Docker-Compose  
+    ```bash
+    sudo docker compose up -d --build
+    ```
+
+  - List down Docker containers  
+    ```bash
+    sudo docker container ls -a
+    ```
+
+  - Stopping the containers
+    ```bash
+    sudo docker compose down
+    ```
+
+
 ## 🧩 Tech Stack
 
 1. Java
 2. Docker (containerisation)
 3. MySQL (DB)
 4. Redis-cache
-5. Spring-MVC
-6. Spring-Security
-7. JWT Authentication
+5. Kafka MQ
+6. Spring-MVC
+7. Spring-Security
+8. JWT Authentication
