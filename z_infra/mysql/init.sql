@@ -1,0 +1,5 @@
+CREATE USER IF NOT EXISTS 'dockeruser3'@'%' IDENTIFIED BY 'Rohan@3105';
+
+GRANT ALL PRIVILEGES ON *.* TO 'dockeruser3'@'%';
+
+FLUSH PRIVILEGES;

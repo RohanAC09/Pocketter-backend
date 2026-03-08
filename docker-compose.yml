@@ -37,18 +37,21 @@ services:
   redis:
     build: ./z_infra/redis
     container_name: redis
+    restart: always
     ports:
       - "6378:6379"
+      # localhost_Post:container_Port
     networks:
       - pocketter-network
   
-  # mysql:
-  #   build: ./z_infra/mysql
-  #   container_name: mysql
-  #   ports:
-  #     - "3307:3306"
-  #   networks:
-  #     - pocketter-network
+  mysql:
+    build: ./z_infra/mysql
+    container_name: mysql-container
+    restart: always
+    ports:
+      - "3309:3306"
+    networks:
+      - pocketter-network
 
 networks:
   pocketter-network:
